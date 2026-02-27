@@ -42,7 +42,7 @@ export function HeroSection() {
           </a>
         </div>
 
-        <Button asChild size="lg" className="shadow-md">
+        <Button asChild size="lg" className="shadow-md bg-primary text-primary-foreground hover:bg-primary/90">
           <a href="/Nick_Heldmann_Resume.pdf" download className="gap-2">
             <Download className="h-4 w-4" />
             Download Resume
