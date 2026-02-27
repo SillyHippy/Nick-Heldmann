@@ -5,9 +5,9 @@ import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/s
 
 const links = [
   { label: "About", href: "#about" },
+  { label: "Skills", href: "#skills" },
   { label: "Experience", href: "#experience" },
   { label: "Education", href: "#education" },
-  { label: "Skills", href: "#skills" },
   { label: "Achievements", href: "#achievements" },
 ];
 
