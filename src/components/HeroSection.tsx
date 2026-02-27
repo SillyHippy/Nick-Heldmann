@@ -26,11 +26,11 @@ export function HeroSection() {
 
         <div className="flex flex-wrap items-center justify-center gap-4 mb-10" style={{ fontFamily: "'DM Sans', sans-serif" }}>
           <a
-            href="mailto:Njheldmann@gmail.com"
+            href="mailto:Nickheldmannbridges@gmail.com"
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
           >
             <Mail className="h-4 w-4" />
-            Njheldmann@gmail.com
+            Nickheldmannbridges@gmail.com
           </a>
           <span className="hidden sm:inline text-border">|</span>
           <a

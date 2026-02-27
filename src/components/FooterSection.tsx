@@ -11,11 +11,11 @@ export function FooterSection() {
 
         <div className="flex flex-wrap items-center justify-center gap-6 mb-8 text-sm opacity-80">
           <a
-            href="mailto:Njheldmann@gmail.com"
+            href="mailto:Nickheldmannbridges@gmail.com"
             className="inline-flex items-center gap-2 hover:opacity-100 transition-opacity"
           >
             <Mail className="h-4 w-4" />
-            Njheldmann@gmail.com
+            Nickheldmannbridges@gmail.com
           </a>
           <a
             href="tel:+12069532438"
