@@ -1,8 +1,14 @@
 import { Mail, Phone, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { useTypingEffect } from "@/hooks/useTypingEffect";
+
+const tagline =
+  "Recent business administration graduate seeking to leverage strong collaboration skills, project management experience, and a customer-first mindset to bring value to a growing team.";
 
 export function HeroSection() {
+  const { displayed, done } = useTypingEffect(tagline, 25, 600);
+
   return (
     <section
       id="about"
@@ -19,9 +25,9 @@ export function HeroSection() {
           Nick Heldmann
         </h1>
 
-        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-          Recent business administration graduate seeking to leverage strong collaboration skills, 
-          project management experience, and a customer-first mindset to bring value to a growing team.
+        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed min-h-[4rem]" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+          {displayed}
+          {!done && <span className="inline-block w-0.5 h-5 bg-primary ml-0.5 animate-pulse align-middle" />}
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-4 mb-10" style={{ fontFamily: "'DM Sans', sans-serif" }}>

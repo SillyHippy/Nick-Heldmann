@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, Sun, Moon } from "lucide-react";
+import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 
@@ -14,12 +15,18 @@ const links = [
 export function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const toggleTheme = () => setTheme(theme === "dark" ? "light" : "dark");
 
   return (
     <header
@@ -47,6 +54,11 @@ export function Navigation() {
             </li>
           ))}
           <li>
+            <Button variant="ghost" size="icon" onClick={toggleTheme} aria-label="Toggle theme">
+              {mounted && theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            </Button>
+          </li>
+          <li>
             <Button asChild size="sm">
               <a href="/Nick_Heldmann_Resume.pdf" download>
                 Download Resume
@@ -56,36 +68,41 @@ export function Navigation() {
         </ul>
 
         {/* Mobile */}
-        <Sheet open={open} onOpenChange={setOpen}>
-          <SheetTrigger asChild className="md:hidden">
-            <Button variant="ghost" size="icon">
-              <Menu className="h-5 w-5" />
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="right" className="w-64">
-            <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
-            <ul className="flex flex-col gap-6 mt-8">
-              {links.map((l) => (
-                <li key={l.href}>
-                  <a
-                    href={l.href}
-                    onClick={() => setOpen(false)}
-                    className="text-lg font-medium text-foreground hover:text-primary transition-colors"
-                  >
-                    {l.label}
-                  </a>
+        <div className="flex items-center gap-2 md:hidden">
+          <Button variant="ghost" size="icon" onClick={toggleTheme} aria-label="Toggle theme">
+            {mounted && theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          </Button>
+          <Sheet open={open} onOpenChange={setOpen}>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <Menu className="h-5 w-5" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-64">
+              <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+              <ul className="flex flex-col gap-6 mt-8">
+                {links.map((l) => (
+                  <li key={l.href}>
+                    <a
+                      href={l.href}
+                      onClick={() => setOpen(false)}
+                      className="text-lg font-medium text-foreground hover:text-primary transition-colors"
+                    >
+                      {l.label}
+                    </a>
+                  </li>
+                ))}
+                <li>
+                  <Button asChild className="w-full">
+                    <a href="/Nick_Heldmann_Resume.pdf" download>
+                      Download Resume
+                    </a>
+                  </Button>
                 </li>
-              ))}
-              <li>
-                <Button asChild className="w-full">
-                  <a href="/Nick_Heldmann_Resume.pdf" download>
-                    Download Resume
-                  </a>
-                </Button>
-              </li>
-            </ul>
-          </SheetContent>
-        </Sheet>
+              </ul>
+            </SheetContent>
+          </Sheet>
+        </div>
       </nav>
     </header>
   );

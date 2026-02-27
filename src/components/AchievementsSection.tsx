@@ -1,5 +1,6 @@
 import { Award, ShieldCheck } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const certifications = [
   "CPR Verified",
@@ -15,15 +16,17 @@ const volunteer = [
 ];
 
 export function AchievementsSection() {
+  const ref = useScrollReveal<HTMLElement>();
+
   return (
-    <section id="achievements" className="py-20 px-6">
+    <section id="achievements" className="py-20 px-6" ref={ref}>
       <div className="container mx-auto max-w-3xl">
         <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center">
           Achievements
         </h2>
 
         {/* Eagle Scout */}
-        <Card className="border-primary/20 shadow-md mb-10">
+        <Card className="border-primary/20 shadow-md mb-10 hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
           <CardContent className="p-6 flex gap-4">
             <div className="flex-shrink-0 mt-1">
               <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">

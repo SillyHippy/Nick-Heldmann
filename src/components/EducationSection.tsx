@@ -1,5 +1,6 @@
 import { GraduationCap } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const schools = [
   {
@@ -26,8 +27,10 @@ const schools = [
 ];
 
 export function EducationSection() {
+  const ref = useScrollReveal<HTMLElement>();
+
   return (
-    <section id="education" className="py-20 px-6">
+    <section id="education" className="py-20 px-6" ref={ref}>
       <div className="container mx-auto max-w-3xl">
         <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center">
           Education
@@ -35,7 +38,7 @@ export function EducationSection() {
 
         <div className="grid gap-6">
           {schools.map((s, i) => (
-            <Card key={i} className="border-border/60 shadow-sm">
+            <Card key={i} className="border-border/60 shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
               <CardContent className="p-6 flex gap-4">
                 <div className="flex-shrink-0 mt-1">
                   <div className="h-10 w-10 rounded-full bg-accent flex items-center justify-center">

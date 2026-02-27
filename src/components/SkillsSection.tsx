@@ -1,3 +1,5 @@
+import { useScrollReveal } from "@/hooks/useScrollReveal";
+
 const skillGroups = [
   {
     label: "Tech & Tools",
@@ -35,8 +37,10 @@ const skillGroups = [
 ];
 
 export function SkillsSection() {
+  const ref = useScrollReveal<HTMLElement>();
+
   return (
-    <section id="skills" className="py-20 px-6 bg-card/50">
+    <section id="skills" className="py-20 px-6 bg-card/50" ref={ref}>
       <div className="container mx-auto max-w-3xl">
         <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center">
           Skills
@@ -55,7 +59,7 @@ export function SkillsSection() {
                 {group.skills.map((skill) => (
                   <span
                     key={skill}
-                    className="text-sm px-3 py-1.5 rounded-full bg-accent text-accent-foreground border border-border/50"
+                    className="text-sm px-3 py-1.5 rounded-full bg-accent text-accent-foreground border border-border/50 hover:bg-primary hover:text-primary-foreground transition-colors duration-200 cursor-default"
                   >
                     {skill}
                   </span>
