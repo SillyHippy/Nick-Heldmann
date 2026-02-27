@@ -1,33 +1,56 @@
 
-Goal: fix the footer “Download Resume” button so the text is clearly visible against the dark footer background.
 
-What’s happening now:
-- The footer uses a dark background (`bg-foreground`) with light text (`text-primary-foreground`).
-- The button is using `variant="outline"`, which injects `bg-background` (light fill).
-- The recent override sets `text-background`, which is also light.
-- Result: light text on a light button fill, so the label disappears (matching your screenshot).
+# Resume Site Enhancements
 
-Implementation plan:
-1) Update the footer button styling in `src/components/FooterSection.tsx`
-- Keep the button as `variant="outline"` for border structure.
-- Replace the current class override with a dark-surface-safe override:
-  - `bg-transparent`
-  - `text-primary-foreground`
-  - `border-primary-foreground/40`
-  - `hover:bg-primary-foreground/10`
-  - `hover:text-primary-foreground`
-- This explicitly overrides the outline variant’s light background and keeps contrast readable.
+## 1. Scroll-in Animations for All Sections
+Add a reusable `useScrollReveal` hook using the Intersection Observer API (no extra dependencies). Each section will fade in and slide up as it enters the viewport.
 
-2) Keep icon + text inheritance intact
-- No structure change needed for the `<a>` inside `<Button asChild>`.
-- The icon will inherit text color via current button/anchor inheritance, so icon and label stay visible together.
+- Create a custom hook `src/hooks/useScrollReveal.ts`
+- Add fade-in keyframes to `tailwind.config.ts`
+- Apply the animation class to each section component (Skills, Experience, Education, Achievements)
 
-3) Validate visually and interaction-wise
-- Confirm footer button label is readable at rest and on hover.
-- Confirm click still downloads `/Nick_Heldmann_Resume.pdf`.
-- Quick responsive check (desktop + mobile width) to ensure contrast remains good on all breakpoints.
+## 2. Smooth Hover Effects on Cards
+Enhance all Card components across Experience, Education, and Achievements with lift + shadow transitions on hover.
 
-Technical notes:
-- File to change: `src/components/FooterSection.tsx`
-- No changes required in `src/components/ui/button.tsx` (global variant behavior should remain untouched to avoid side effects across the app).
-- This is a targeted, low-risk fix scoped only to the problematic footer instance.
+- Add `hover:-translate-y-1 hover:shadow-lg transition-all duration-300` to cards in:
+  - `ExperienceSection.tsx`
+  - `EducationSection.tsx`
+  - `AchievementsSection.tsx`
+- Also add hover color accent to skill badges in `SkillsSection.tsx`
+
+## 3. Typing Animation on Hero
+Add a typing effect to the tagline in the hero section, character by character.
+
+- Create a `useTypingEffect` hook in `src/hooks/useTypingEffect.ts`
+- Apply it to the subtitle text in `HeroSection.tsx`
+- Include a blinking cursor that disappears after typing completes
+
+## 4. Dark Mode Toggle
+Add a theme toggle button in the navigation bar.
+
+- Install/use `next-themes` (already installed) for theme management
+- Wrap the app in a `ThemeProvider` in `App.tsx`
+- Add a Sun/Moon toggle button to `Navigation.tsx` (desktop and mobile)
+- The existing CSS variables for `.dark` are already defined in `index.css`, so it will work out of the box
+
+## 5. Richer Experience Descriptions
+Expand the experience entries with more detail and bullet points where appropriate.
+
+- Update the `experiences` array in `ExperienceSection.tsx` with additional accomplishments and responsibilities
+- Optionally convert single description strings to arrays of bullet points for better readability
+- Update the card rendering to support bullet-point lists
+
+## Files to Create
+- `src/hooks/useScrollReveal.ts`
+- `src/hooks/useTypingEffect.ts`
+
+## Files to Modify
+- `src/App.tsx` — wrap with ThemeProvider
+- `src/components/Navigation.tsx` — add dark mode toggle
+- `src/components/HeroSection.tsx` — typing animation on tagline
+- `src/components/ExperienceSection.tsx` — hover effects, richer descriptions with bullets
+- `src/components/EducationSection.tsx` — hover effects, scroll reveal
+- `src/components/AchievementsSection.tsx` — hover effects, scroll reveal
+- `src/components/SkillsSection.tsx` — hover on badges, scroll reveal
+- `tailwind.config.ts` — add fade-in/slide-up keyframes
+
