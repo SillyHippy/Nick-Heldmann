@@ -26,7 +26,7 @@ export function FooterSection() {
           </a>
         </div>
 
-        <Button asChild variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">
+        <Button asChild variant="outline" className="border-background/40 text-background hover:bg-background/10">
           <a href="/Nick_Heldmann_Resume.pdf" download className="gap-2">
             <Download className="h-4 w-4" />
             Download Resume
